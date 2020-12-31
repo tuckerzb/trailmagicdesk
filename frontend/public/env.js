@@ -1,0 +1,5 @@
+window.env = {
+  "SQUARE_APPLICATION_ID": "sandbox-sq0idb-c8hnuHGwxUN2i9ksVg5LuA",
+  "SQUARE_ACCESS_TOKEN": "EAAAECOUw5hwebFoH3JSNyr3e0_jAukqF9o3tE8Zfq7nL06uIa9UB3gmLhzJAu8F",
+  "SQUARE_LOCATION_ID": "LGSQ2AEHVVSZQ"
+};

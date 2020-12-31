@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Button, Row, Col, ListGroup, Image, Card, Form} from 'react-bootstrap';
+import env from 'react-dotenv';
+import { Row, Col, ListGroup, Image, Card, Form} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux';
 import Message from '../components/Message';
 import {Link} from 'react-router-dom';
@@ -16,6 +17,7 @@ import {
   } from 'react-square-payment-form'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import Meta from '../components/Meta';
+import CountrySelect from 'react-bootstrap-country-select';
 
 const PlaceOrderScreen = ({history}) => {
 
@@ -38,16 +40,24 @@ const PlaceOrderScreen = ({history}) => {
             history.push(`/order/${order._id}`)
         }
 
-    }, [history, success, order, userInfo])
+    }, [history, dispatch, success, order, userInfo])
 
     const [nonceErrors, setNonceErrors] = useState([]);
-    const [address, setAddress] = useState(userInfo.billingAddress || '');
-    const [city, setCity] = useState(userInfo.billingCity || '');
-    const [zipCode, setZipCode] = useState(userInfo.billingZip || '');
-    const [state, setState] = useState(userInfo.billingState || '');
-    const [country, setCountry] = useState(userInfo.billingCountry || '');
+    const [address, setAddress] = useState(userInfo.billingAddress);
+    const [city, setCity] = useState(userInfo.billingCity);
+    const [zipCode, setZipCode] = useState(userInfo.billingZip);
+    const [state, setState] = useState(userInfo.billingState);
+    const [country, setCountry] = useState(userInfo.billingCountry);
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
+
+    // // if (userInfo) {
+    //     setAddress(userInfo.billingAddress);
+    //     setCity(userInfo.billingCity);
+    //     setState(userInfo.billingState);
+    //     setZipCode(userInfo.billingZip);
+    //     setCountry(userInfo.billingCountry);
+    // // }
 
     const addDecimals = (num) => (
         (Math.round(num * 100) / 100).toFixed(2)
@@ -110,7 +120,7 @@ const PlaceOrderScreen = ({history}) => {
             familyName: userInfo.name.split(' ')[1],
             givenName: userInfo.name.split(' ')[0],
             email: userInfo.email,
-            country: country,
+            country: country.toUpperCase(),
             city: city,
             addressLines: [address],
             postalCode: zipCode
@@ -187,8 +197,8 @@ const PlaceOrderScreen = ({history}) => {
                             </Form.Group>
                             <Form.Group controlID='country'>
                                 <Form.Label>Country</Form.Label>
-                                <Form.Control type='text' placeholder='Country' value={country} onChange={(e) => setCountry(e.target.value)} required></Form.Control>
-                            </Form.Group>
+                                <CountrySelect value={country.toLowerCase()} onChange={setCountry} valueAs='id' />
+                                </Form.Group>
                         </ListGroup.Item>
                     </ListGroup>
                 </Col>
@@ -237,8 +247,8 @@ const PlaceOrderScreen = ({history}) => {
                             <ListGroup.Item>
                                 <SquarePaymentForm
                                     sandbox={true}
-                                    applicationId='sandbox-sq0idb-c8hnuHGwxUN2i9ksVg5LuA'
-                                    locationId='LGSQ2AEHVVSZQ'
+                                    applicationId={env.SQUARE_APPLICATION_ID}
+                                    locationId={env.SQUARE_LOCATION_ID}
                                     cardNonceResponseReceived={cardNonceResponseReceived}
                                     createVerificationDetails={createVerificationDetails}
                                     >

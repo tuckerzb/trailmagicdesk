@@ -3,16 +3,18 @@ import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
+import dotenv from 'dotenv';
 
 // @desc     Send payment to square
 // @route    POST /api/payment
 // @access   Private
-const authorizePayment = asyncHandler(async (req, res) => {
-    const payload = {
+const authorizePayment = asyncHandler(async (req, res) => {  
+  
+  const payload = {
         "source_id": req.body.nonce,
         "verification_token": req.body.token,
         "autocomplete": true,
-        "location_id": "LGSQ2AEHVVSZQ",
+        "location_id": process.env.SQUARE_LOCATION_ID,
         "amount_money": { 
         "amount": req.body.amount,
         "currency": "USD"
