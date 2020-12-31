@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import env from 'react-dotenv';
 import { Row, Col, ListGroup, Image, Card, Form} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux';
 import Message from '../components/Message';
@@ -19,6 +18,11 @@ import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import Meta from '../components/Meta';
 import CountrySelect from 'react-bootstrap-country-select';
 
+const getSquareConfig = async () => {
+    const {data} = await axios.get('/api/config/square');
+    return data;
+}
+
 const PlaceOrderScreen = ({history}) => {
 
     const cart = useSelector(state => state.cart);
@@ -30,6 +34,9 @@ const PlaceOrderScreen = ({history}) => {
     const orderState = useSelector(state => state.orderCreate);
     const {order, success, error} = orderState;
 
+    const [squareConfig, setSquareConfig] = useState({});
+
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login');
@@ -40,7 +47,11 @@ const PlaceOrderScreen = ({history}) => {
             history.push(`/order/${order._id}`)
         }
 
-    }, [history, dispatch, success, order, userInfo])
+    }, [history, dispatch, success, order, userInfo]);
+
+    getSquareConfig().then(result => {
+        setSquareConfig(result);
+    });
 
     const [nonceErrors, setNonceErrors] = useState([]);
     const [address, setAddress] = useState(userInfo.billingAddress);
@@ -247,8 +258,8 @@ const PlaceOrderScreen = ({history}) => {
                             <ListGroup.Item>
                                 <SquarePaymentForm
                                     sandbox={true}
-                                    applicationId={env.SQUARE_APPLICATION_ID}
-                                    locationId={env.SQUARE_LOCATION_ID}
+                                    applicationId={squareConfig.SQUARE_APPLICATION_ID}
+                                    locationId={squareConfig.SQUARE_LOCATION_ID}
                                     cardNonceResponseReceived={cardNonceResponseReceived}
                                     createVerificationDetails={createVerificationDetails}
                                     >
