@@ -36,13 +36,13 @@ const PlaceOrderScreen = ({history}) => {
 
     const [squareConfig, setSquareConfig] = useState({});
 
-    if (!userInfo) {
-        history.push('/login');
-    } else {
-        getSquareConfig().then(result => {
-            setSquareConfig(result);
-        });
-    }
+    // if (!userInfo) {
+    //     history.push('/login');
+    // } else {
+    //     getSquareConfig().then(result => {
+    //         setSquareConfig(result);
+    //     });
+    // }
 
 
     useEffect(() => {
