@@ -26,7 +26,7 @@ const CartScreen = ({match, location, history}) => {
     }
 
     const checkoutHandler = () => {
-        history.push('/placeorder');
+        history.push('/login?redirect=placeorder');
     }
 
     return (
