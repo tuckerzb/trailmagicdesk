@@ -19,13 +19,13 @@ const ProductListScreen = ({history, match}) => {
    const {userInfo} = userLogin;
 
    const productDelete = useSelector(state => state.productDelete);
-   const {success:successDelete, loading: loadingDelete, error:errorDelete} = productDelete;
+   const {success:successDelete, error:errorDelete} = productDelete;
 
    const productCreate = useSelector(state => state.productCreate);
-   const {success:successCreate, loading: loadingCreate, error:errorCreate, product:createdProduct} = productCreate;
+   const {success:successCreate, error:errorCreate, product:createdProduct} = productCreate;
 
    const productUpdateIsActive = useSelector(state => state.productUpdateIsActive);
-   const {success:successIsActive, error:errorIsActive, loading:loadingIsActive} = productUpdateIsActive;
+   const {success:successIsActive, error:errorIsActive} = productUpdateIsActive;
 
 
    useEffect(() => {

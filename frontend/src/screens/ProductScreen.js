@@ -19,31 +19,15 @@ const ProductScreen = ({history, match}) => {
     const {loading, error, product} = productDetails;
 
     const productReviewCreate = useSelector(state => state.productReviewCreate);
-    const {error: errorProductReview, success:successProductReview} = productReviewCreate;
+    const { success:successProductReview} = productReviewCreate;
 
-    const userLogin = useSelector(state => state.userLogin);
-    const {userInfo} = userLogin;
     
     useEffect(() => {
-        if (successProductReview) {
-            alert('Review submitted!');
-            dispatch({type: PRODUCT_CREATE_REVIEW_RESET});
-            setRating(0);
-            setComment('');
-        }
         dispatch(listProductDetails(match.params.id));
     }, [dispatch, match, successProductReview]);
 
     const addtoCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`);
-    }
-
-    const submitHandler = (e) => {
-        e.preventDefault();
-        dispatch(createProductReview(match.params.id, {
-            rating,
-            comment
-        }))
     }
 
     return (
