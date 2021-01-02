@@ -38,6 +38,10 @@ const PlaceOrderScreen = ({history}) => {
 
     if (!userInfo) {
         history.push('/login');
+    } else {
+        getSquareConfig().then(result => {
+            setSquareConfig(result);
+        });
     }
 
 
@@ -52,10 +56,6 @@ const PlaceOrderScreen = ({history}) => {
         }
 
     }, [history, dispatch, success, order, userInfo]);
-
-    getSquareConfig().then(result => {
-        setSquareConfig(result);
-    });
 
     const [nonceErrors, setNonceErrors] = useState([]);
     const [address, setAddress] = useState(userInfo.billingAddress);
