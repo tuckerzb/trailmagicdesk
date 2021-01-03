@@ -52,12 +52,16 @@ const PlaceOrderScreen = ({history}) => {
 
     }, [history, dispatch, success, order, userInfo]);
 
+    if (!userInfo) {
+        history.push('/login');
+    }
+
     const [nonceErrors, setNonceErrors] = useState([]);
-    const [address, setAddress] = useState(userInfo.billingAddress);
-    const [city, setCity] = useState(userInfo.billingCity);
-    const [zipCode, setZipCode] = useState(userInfo.billingZip);
-    const [state, setState] = useState(userInfo.billingState);
-    const [country, setCountry] = useState(userInfo.billingCountry);
+    const [address, setAddress] = useState(userInfo && userInfo.hasOwnProperty('billingAddress') ? userInfo.billingAddress : '');
+    const [city, setCity] = useState(userInfo && userInfo.hasOwnProperty('billingCity') ? userInfo.billingCity : '');
+    const [zipCode, setZipCode] = useState(userInfo && userInfo.hasOwnProperty('billingZip') ? userInfo.billingZip : '');
+    const [state, setState] = useState(userInfo && userInfo.hasOwnProperty('billingState') ? userInfo.billingState : '');
+    const [country, setCountry] = useState(userInfo && userInfo.hasOwnProperty('billingCountry') ? userInfo.billingCountry : '');
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
 
@@ -207,7 +211,7 @@ const PlaceOrderScreen = ({history}) => {
                             </Form.Group>
                             <Form.Group controlID='country'>
                                 <Form.Label>Country</Form.Label>
-                                <CountrySelect value={country.toLowerCase()} onChange={setCountry} valueAs='id' />
+                                <CountrySelect value={country && country.toLowerCase()} onChange={setCountry} valueAs='id' />
                                 </Form.Group>
                         </ListGroup.Item>
                     </ListGroup>
