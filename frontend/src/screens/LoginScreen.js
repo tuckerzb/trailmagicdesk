@@ -37,11 +37,11 @@ const LoginScreen = ({location, history}) => {
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
-                <Form.Group controlID='email'>
+                <Form.Group controlId='email'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                 </Form.Group>
-                <Form.Group controlID='password'>
+                <Form.Group controlId='password'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
                 </Form.Group>

@@ -18,11 +18,6 @@ import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import Meta from '../components/Meta';
 import CountrySelect from 'react-bootstrap-country-select';
 
-const getSquareConfig = async () => {
-    const {data} = await axios.get('/api/config/square');
-    return data;
-}
-
 const PlaceOrderScreen = ({history}) => {
 
     const cart = useSelector(state => state.cart);
@@ -36,14 +31,21 @@ const PlaceOrderScreen = ({history}) => {
 
     const [squareConfig, setSquareConfig] = useState({});
 
-    getSquareConfig().then(result => {
-        setSquareConfig(result);
-    });
+    const getSquareConfig = async () => {
+       await axios.get('/api/config/square').then(result => {
+           setSquareConfig(result.data);
+        });
+
+    }
 
     useEffect(() => {
         if (!userInfo) {
             history.push('/login');
+        } else {
+            getSquareConfig();
+
         }
+    
         if (success) {
             dispatch({type: ORDER_CREATE_RESET});
             localStorage.removeItem('cartItems');
@@ -54,7 +56,7 @@ const PlaceOrderScreen = ({history}) => {
 
     if (!userInfo) {
         history.push('/login');
-    }
+    } 
 
     const [nonceErrors, setNonceErrors] = useState([]);
     const [address, setAddress] = useState(userInfo && userInfo.hasOwnProperty('billingAddress') ? userInfo.billingAddress : '');
@@ -64,14 +66,6 @@ const PlaceOrderScreen = ({history}) => {
     const [country, setCountry] = useState(userInfo && userInfo.hasOwnProperty('billingCountry') ? userInfo.billingCountry : '');
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
-
-    // // if (userInfo) {
-    //     setAddress(userInfo.billingAddress);
-    //     setCity(userInfo.billingCity);
-    //     setState(userInfo.billingState);
-    //     setZipCode(userInfo.billingZip);
-    //     setCountry(userInfo.billingCountry);
-    // // }
 
     const addDecimals = (num) => (
         (Math.round(num * 100) / 100).toFixed(2)
@@ -177,14 +171,14 @@ const PlaceOrderScreen = ({history}) => {
                             <p>Are you buying this trail magic for a specific hiker or hikers? Enter their trail name below!
                                 (Note - some trail names are popular and could be repeated within a group. It is helpful to include your hiker's real first name in addition to their trail name.)
                             </p>
-                            <Form.Group controlID='recipient'>
+                            <Form.Group controlId='recipient'>
                                 <Form.Label>Trail Name (Optional)</Form.Label>
                                 <Form.Control type='text' placeholder='' value={recipient} onChange={(e) => setRecipient(e.target.value)}></Form.Control>
                             </Form.Group>
                             <h2>Message</h2>
                             <p>We'll pass your message along to the lucky hiker!
                             </p>
-                            <Form.Group controlID='message'>
+                            <Form.Group controlId='message'>
                                 <Form.Label>Message (Optional)</Form.Label>
                                 <Form.Control type='text' placeholder='' value={message} onChange={(e) => setMessage(e.target.value)}></Form.Control>
                             </Form.Group>
@@ -193,23 +187,23 @@ const PlaceOrderScreen = ({history}) => {
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <h2>Billing Information</h2>
-                            <Form.Group controlID='address'>
+                            <Form.Group controlId='address'>
                                 <Form.Label>Address</Form.Label>
                                 <Form.Control type='text' placeholder='Address' value={address} onChange={(e) => setAddress(e.target.value)} required></Form.Control>
                             </Form.Group>
-                            <Form.Group controlID='city'>
+                            <Form.Group controlId='city'>
                                 <Form.Label>City</Form.Label>
                                 <Form.Control type='text' placeholder='City' value={city} onChange={(e) => setCity(e.target.value)} required></Form.Control>
                             </Form.Group>
-                            <Form.Group controlID='city'>
+                            <Form.Group controlId='state'>
                                 <Form.Label>State</Form.Label>
                                 <Form.Control type='text' placeholder='State' value={state} onChange={(e) => setState(e.target.value)} required></Form.Control>
                             </Form.Group>
-                            <Form.Group controlID='postalCode'>
+                            <Form.Group controlId='postalCode'>
                                 <Form.Label>ZIP Code</Form.Label>
                                 <Form.Control type='text' placeholder='Postal Code' value={zipCode} onChange={(e) => setZipCode(e.target.value)} required></Form.Control>
                             </Form.Group>
-                            <Form.Group controlID='country'>
+                            <Form.Group controlId='country'>
                                 <Form.Label>Country</Form.Label>
                                 <CountrySelect value={country && country.toLowerCase()} onChange={setCountry} valueAs='id' />
                                 </Form.Group>

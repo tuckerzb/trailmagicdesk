@@ -25,7 +25,7 @@ const authorizePayment = asyncHandler(async (req, res) => {
   const config = {
     headers: {
         'Content-Type': 'application/json',
-        Authorization: `bearer EAAAECOUw5hwebFoH3JSNyr3e0_jAukqF9o3tE8Zfq7nL06uIa9UB3gmLhzJAu8F` 
+        Authorization: `bearer ${process.env.SQUARE_BEARER_TOKEN}` 
     }
   };
 
