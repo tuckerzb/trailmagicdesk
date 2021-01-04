@@ -34,18 +34,18 @@ const HomeScreen = ({match}) => {
                     a 20+ bed bunkhouse (with laundry + kitchen) AND a full pub with 200+ unique beers and food on site. If you'd like to make a hiker's day, 
                     you can use the links below to buy a bunk, beer, or food for them. During checkout, you can specify a Trail Name and Message for your intended recipient.
                 </p>
-                <Row>
+                {/* <Row>
                     <Col md={2}>
                         <Image src='/hikerPics/001.jpg' className='border border-dark p-0' thumbnail />
                     </Col>
-                    <Col md={2}>
+                    <Col  md={2}>
                         <Image src='/hikerPics/002.jpg' className='border border-dark p-0' thumbnail />
                     </Col>
-                    <Col md={2}>
+                    <Col  md={2}>
                         <Image src='/hikerPics/003.jpg' className='border border-dark p-0' thumbnail />
                     </Col>
 
-                    <Col md={2}>
+                    <Col  md={2}>
                         <Image src='/hikerPics/004.jpg' className='border border-dark p-0' thumbnail />
                     </Col>
 
@@ -57,7 +57,7 @@ const HomeScreen = ({match}) => {
                         <Image src='/hikerPics/006.jpg' className='border border-dark p-0' thumbnail />
                     </Col>
 
-                </Row>
+                </Row> */}
             </Jumbotron>
 
            <Meta />
