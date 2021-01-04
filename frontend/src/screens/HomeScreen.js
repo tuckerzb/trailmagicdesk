@@ -24,6 +24,9 @@ const HomeScreen = ({match}) => {
     
     return (
         <>
+            <div className='text-center my-2'>
+                <Image src='station-cheer.jpg' className='mx-auto w-50' fluid />
+            </div>
             <Jumbotron className='my-1 py-3'>
                 <h2>What is trail magic?</h2>
                 <p>Trail magic means something unique to every hiker, but to most, it is: finding what you need most when you least expect it, experiencing something rare, extraordinary, or inspiring in nature, or encountering unexpected acts of generosity, that restore one’s faith in humanity.<br />
@@ -35,26 +38,26 @@ const HomeScreen = ({match}) => {
                     you can use the links below to buy a bunk, beer, or food for them. During checkout, you can specify a Trail Name and Message for your intended recipient.
                 </p>
                 {/* <Row>
-                    <Col md={2}>
-                        <Image src='/hikerPics/001.jpg' className='border border-dark p-0' thumbnail />
+                    <Col className='d-xs-none d-md-block' md={2}>
+                        <Image src='/hikerPics/001.jpg' className='border border-dark p-0' thumbnail fluid />
                     </Col>
                     <Col  md={2}>
-                        <Image src='/hikerPics/002.jpg' className='border border-dark p-0' thumbnail />
+                        <Image src='/hikerPics/002.jpg' className='border border-dark p-0' thumbnail fluid />
                     </Col>
                     <Col  md={2}>
-                        <Image src='/hikerPics/003.jpg' className='border border-dark p-0' thumbnail />
+                        <Image src='/hikerPics/003.jpg' className='border border-dark p-0' thumbnail fluid />
                     </Col>
 
                     <Col  md={2}>
-                        <Image src='/hikerPics/004.jpg' className='border border-dark p-0' thumbnail />
+                        <Image src='/hikerPics/004.jpg' className='border border-dark p-0' thumbnail fluid />
                     </Col>
 
                     <Col md={2}>
-                        <Image src='/hikerPics/005.jpg' className='border border-dark p-0' thumbnail />
+                        <Image src='/hikerPics/005.jpg' className='border border-dark p-0' thumbnail fluid />
                     </Col>
 
                     <Col md={2}>
-                        <Image src='/hikerPics/006.jpg' className='border border-dark p-0' thumbnail />
+                        <Image src='/hikerPics/006.jpg' className='border border-dark p-0' thumbnail fluid />
                     </Col>
 
                 </Row> */}
