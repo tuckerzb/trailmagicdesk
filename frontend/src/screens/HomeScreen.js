@@ -75,7 +75,17 @@ const HomeScreen = ({match}) => {
             </Row>
             <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} /> </>)
             }
-                    </>
+            <Jumbotron className='my-1 py-3'>
+                <Row className='align-items-center'>
+                    <Col md={6}>
+                        <Image src='station-sign.jpg' className='border border-dark p-0' fluid thumbnail />
+                    </Col>
+                    <Col md={6} className='text-center'>
+                        <span className='display-2 font-weight-bold'>"See you when you get here!"</span>
+                    </Col>
+                </Row>
+            </Jumbotron>
+        </>
     )
 }
 

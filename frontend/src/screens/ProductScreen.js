@@ -5,26 +5,19 @@ import {Row, Col, Image, ListGroup, Card, Button, Form} from 'react-bootstrap';
 import Meta from '../components/Meta';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import {listProductDetails, createProductReview} from '../actions/productActions';
-import {PRODUCT_CREATE_REVIEW_RESET} from '../constants/productConstants';
+import {listProductDetails} from '../actions/productActions';
 
 
 const ProductScreen = ({history, match}) => {
     const [qty, setQty] = useState(1);
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState('');
 
     const dispatch = useDispatch();
     const productDetails = useSelector(state => state.productDetails);
     const {loading, error, product} = productDetails;
-
-    const productReviewCreate = useSelector(state => state.productReviewCreate);
-    const { success:successProductReview} = productReviewCreate;
-
     
     useEffect(() => {
         dispatch(listProductDetails(match.params.id));
-    }, [dispatch, match, successProductReview]);
+    }, [dispatch, match]);
 
     const addtoCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`);
