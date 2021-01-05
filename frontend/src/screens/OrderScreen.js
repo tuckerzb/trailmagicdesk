@@ -13,23 +13,16 @@ const OrderScreen = ({match, history}) => {
 
     const id = match.params.id;
 
-    const userLogin = useSelector(state => state.userLogin);
-    const {userInfo} = userLogin;
-
     const orderDetails = useSelector(state => state.orderDetails);
     const {order, loading, error} = orderDetails;
-
     useEffect(() => {
-        if (!userInfo) {
-            history.push('/login');
-        }
 
         dispatch({type: CART_RESET});
         if (!order) {
           dispatch(getOrderDetails(id));
         }
         
-    }, [dispatch, history, userInfo, id, order]);
+    }, [dispatch, history, id, order]);
 
     if (!loading) {
         //   Calculate prices
@@ -62,6 +55,11 @@ const OrderScreen = ({match, history}) => {
                     <strong>Name: </strong> {order.user.name}<br />
                     <strong>Email: </strong> 
                     <a href={`mailto:${order.user.email}`}>{order.user.email}</a><br />
+                    <strong>Address: </strong> {order.user.billingAddress}<br />
+                    <strong>City: </strong> {order.user.billingCity}<br />
+                    <strong>State: </strong> {order.user.billingState}<br />
+                    <strong>ZIP: </strong> {order.user.billingZip}<br />
+                    <strong>Country: </strong> {order.user.billingCountry.toUpperCase()}<br /><br />
                     <strong>Hiker Recipient: </strong>{order.recipient}<br />
                     <strong>Message: </strong>{order.message}
                   </p>

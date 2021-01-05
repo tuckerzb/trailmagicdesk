@@ -27,20 +27,6 @@ const Header = ({history}) => {
                         <LinkContainer to ='/cart'>
                             <Nav.Link><i className="fas fa-shopping-cart">Cart</i></Nav.Link>
                         </LinkContainer>
-                        {userInfo ? (
-                            <NavDropdown title={userInfo.name} id='username'>
-                                <LinkContainer to='/profile'>
-                                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                                </LinkContainer>
-                                <NavDropdown.Item onClick={logoutHandler}>
-                                    Logout
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        ) : (
-                        <LinkContainer to ='/login'>
-                            <Nav.Link><i className="fas fa-user">Sign In</i></Nav.Link>
-                        </LinkContainer>
-                        )}
                         {userInfo && userInfo.isAdmin && (
                             <NavDropdown title='Admin' id='adminMenu'>
                             <LinkContainer to='/admin/userList'>
@@ -52,6 +38,9 @@ const Header = ({history}) => {
                             <LinkContainer to='/admin/orderList'>
                                 <NavDropdown.Item>Orders</NavDropdown.Item>
                             </LinkContainer>
+                            <NavDropdown.Item onClick={logoutHandler}>
+                                    Logout
+                                </NavDropdown.Item>
                         </NavDropdown>
                         )}
                     </Nav>

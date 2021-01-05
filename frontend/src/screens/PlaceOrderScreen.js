@@ -21,8 +21,6 @@ import CountrySelect from 'react-bootstrap-country-select';
 const PlaceOrderScreen = ({history}) => {
 
     const cart = useSelector(state => state.cart);
-    const userLogin = useSelector(state => state.userLogin);
-    const {userInfo} = userLogin;
 
     const dispatch = useDispatch();
 
@@ -39,12 +37,7 @@ const PlaceOrderScreen = ({history}) => {
     }
 
     useEffect(() => {
-        if (!userInfo) {
-            history.push('/login');
-        } else {
-            getSquareConfig();
-
-        }
+        getSquareConfig();
     
         if (success) {
             dispatch({type: ORDER_CREATE_RESET});
@@ -52,18 +45,16 @@ const PlaceOrderScreen = ({history}) => {
             history.push(`/order/${order._id}`)
         }
 
-    }, [history, dispatch, success, order, userInfo]);
-
-    if (!userInfo) {
-        history.push('/login');
-    } 
+    }, [history, dispatch, success, order]);
 
     const [nonceErrors, setNonceErrors] = useState([]);
-    const [address, setAddress] = useState(userInfo && userInfo.hasOwnProperty('billingAddress') ? userInfo.billingAddress : '');
-    const [city, setCity] = useState(userInfo && userInfo.hasOwnProperty('billingCity') ? userInfo.billingCity : '');
-    const [zipCode, setZipCode] = useState(userInfo && userInfo.hasOwnProperty('billingZip') ? userInfo.billingZip : '');
-    const [state, setState] = useState(userInfo && userInfo.hasOwnProperty('billingState') ? userInfo.billingState : '');
-    const [country, setCountry] = useState(userInfo && userInfo.hasOwnProperty('billingCountry') ? userInfo.billingCountry : '');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [zipCode, setZipCode] = useState( '');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('us');
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
 
@@ -90,7 +81,8 @@ const PlaceOrderScreen = ({history}) => {
             token: buyerVerificationToken, 
             amount: (Number((cart.totalPrice * 100))),
             billingInfo: {
-                _id: userInfo._id,
+                name,
+                email,
                 address,
                 city,
                 state,
@@ -99,8 +91,7 @@ const PlaceOrderScreen = ({history}) => {
             }
          });
 
-         if(data.status === "COMPLETED") {
-
+         if(data.payment.status === "COMPLETED") {
              dispatch(createOrder({
                 orderItems: cart.cartItems,
                 itemsPrice: cart.itemsPrice,
@@ -108,12 +99,13 @@ const PlaceOrderScreen = ({history}) => {
                 totalPrice: cart.totalPrice,
                 recipient,
                 message,
+                user: data.user._id,
                 paymentResult: {
-                    id: data.id,
-                    status: data.status,
-                    updated_at: data.updated_at,
-                    order_id: data.order_id,
-                    receipt_url: data.receipt_url
+                    id: data.payment.id,
+                    status: data.payment.status,
+                    updated_at: data.payment.updated_at,
+                    order_id: data.payment.order_id,
+                    receipt_url: data.payment.receipt_url
                 }
             }));
          }
@@ -125,9 +117,9 @@ const PlaceOrderScreen = ({history}) => {
           currencyCode: "USD",
           intent: "CHARGE",
           billingContact: {
-            familyName: userInfo.name.split(' ')[1],
-            givenName: userInfo.name.split(' ')[0],
-            email: userInfo.email,
+            familyName: name.split(' ')[1],
+            givenName: name.split(' ')[0],
+            email,
             country: country.toUpperCase(),
             city: city,
             addressLines: [address],
@@ -187,6 +179,14 @@ const PlaceOrderScreen = ({history}) => {
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <h2>Billing Information</h2>
+                            <Form.Group controlId='name'>
+                                <Form.Label>Name on Card</Form.Label>
+                                <Form.Control type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} required></Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId='email'>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required></Form.Control>
+                            </Form.Group>
                             <Form.Group controlId='address'>
                                 <Form.Label>Address</Form.Label>
                                 <Form.Control type='text' placeholder='Address' value={address} onChange={(e) => setAddress(e.target.value)} required></Form.Control>

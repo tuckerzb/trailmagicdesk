@@ -9,7 +9,6 @@ import dotenv from 'dotenv';
 // @route    POST /api/payment
 // @access   Private
 const authorizePayment = asyncHandler(async (req, res) => {  
-  
   const payload = {
         "source_id": req.body.nonce,
         "verification_token": req.body.token,
@@ -30,17 +29,32 @@ const authorizePayment = asyncHandler(async (req, res) => {
   };
 
   const {data} = await axios.post(url, payload, config);
-  
 
-  const user = await User.findById(req.body.billingInfo._id);
-  user.billingAddress = req.body.billingInfo.address;
-  user.billingCity = req.body.billingInfo.city;
-  user.billingState = req.body.billingInfo.state;
-  user.billingCountry = req.body.billingInfo.country;
-  user.billingZip = req.body.billingInfo.zip;
-  await user.save();
+  const userPayload = {
+    name: req.body.billingInfo.name,
+    email: req.body.billingInfo.email,
+    billingAddress: req.body.billingInfo.address,
+    billingCity: req.body.billingInfo.city,
+    billingState: req.body.billingInfo.state,
+    billingCountry: req.body.billingInfo.country,
+    billingZip: req.body.billingInfo.zip
+  }
 
-  res.json(data.payment);
+  const duplicateUser = await User.findOne({email: req.body.billingInfo.email});
+  if (duplicateUser) {
+    const response = {
+      payment: data.payment,
+      user: duplicateUser
+    };
+    res.json(response);
+  } else {
+    const user = await new User(userPayload);
+    const createdUser = await user.save();
+    res.json({
+      payment: data.payment,
+      user: createdUser
+    });
+  }
 
 })
 

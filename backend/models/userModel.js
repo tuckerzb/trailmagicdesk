@@ -13,11 +13,11 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     isAdmin: {
         type: Boolean,
-        required: true,
+        required: false,
         default: false
     },
     billingAddress: {

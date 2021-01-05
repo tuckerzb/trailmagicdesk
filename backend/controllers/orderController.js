@@ -5,7 +5,7 @@ import Order from '../models/orderModel.js';
 // @route    POST /api/orders
 // @access   Private
 const addOrderItems = asyncHandler(async (req, res) => {
-    const {orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice, paymentResult, recipient, message} = req.body;
+    const {orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice, paymentResult, recipient, message, user} = req.body;
 
     if (orderItems && orderItems.length === 0) {
         res.status(400);
@@ -23,7 +23,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
             paymentResult,
             recipient,
             message,
-            user: req.user._id
+            user
         });
 
         const createdOrder = await order.save();
@@ -36,7 +36,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @route    GET /api/orders/:id
 // @access   Private
 const getOrderById = asyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id).populate('user', 'name email');
+    const order = await Order.findById(req.params.id).populate('user', 'name email billingAddress billingCity billingState billingZip billingCountry');
     if (order) {
         res.json(order);
     } else {
