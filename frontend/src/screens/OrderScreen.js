@@ -63,8 +63,8 @@ const OrderScreen = ({match, history}) => {
                     <strong>State: </strong> {order.user.billingState}<br />
                     <strong>ZIP: </strong> {order.user.billingZip}<br />
                     <strong>Country: </strong> {order.user.billingCountry.toUpperCase()}<br /><br />
-                    <strong>Hiker Recipient: </strong>{order.recipient}<br />
-                    <strong>Message: </strong>{order.message}
+                    <strong>Hiker Recipient: </strong><span style={{overflowWrap: 'break-word'}}>{order.recipient}</span><br />
+                    <strong>Message: </strong><span style={{overflowWrap: 'break-word'}}>{order.message}</span>
                   </p>
 
                 </ListGroup.Item>

@@ -36,7 +36,7 @@ const HomeScreen = ({match}) => {
                 <h2>How can I help?</h2>
                 <p>The Station at 19E is a hostel located at Northbound mile 395 on the Appalachian Trail's US-19E road crossing. We ae unique in that we offer
                     a 20+ bed bunkhouse (with laundry + kitchen) AND a full pub with 200+ unique beers and food on site. If you'd like to make a hiker's day, 
-                    you can use the links below to buy a bunk, beer, or food for them. During checkout, you can specify a Trail Name and Message for your intended recipient.
+                    you can use the links below to buy a beer or bunk for them. During checkout, you can specify a Trail Name and Message for your intended recipient, but this is totally optional.
                 </p>
                 {/* <Row>
                     <Col className='d-xs-none d-md-block' md={2}>

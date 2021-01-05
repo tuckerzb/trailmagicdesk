@@ -50,7 +50,7 @@ const CartScreen = ({match, location, history}) => {
                                     ${item.price}
                                 </Col>
                                 <Col md={2}>
-                                <Form.Control type='number' value={item.qty} onChange={e => dispatch(addToCart(item.product, Number(e.target.value)))} />        
+                                <Form.Control type='number' min='1' value={item.qty} onChange={e => dispatch(addToCart(item.product, Number(e.target.value)))} />        
                                 </Col>
                                 <Col md={2}>
                                     <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}>

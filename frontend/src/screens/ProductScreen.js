@@ -66,7 +66,7 @@ const ProductScreen = ({history, match}) => {
                                         Quantity:
                                         </Col>
                                         <Col>
-                                        <Form.Control type='number' placeholder='1' value={qty} onChange={(e) => setQty(e.target.value)}></Form.Control>
+                                        <Form.Control type='number' min='1' placeholder='1' value={qty} onChange={(e) => setQty(e.target.value)}></Form.Control>
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
