@@ -27,7 +27,7 @@ const authorizePayment = asyncHandler(async (req, res) => {
         Authorization: `bearer ${process.env.SQUARE_BEARER_TOKEN}` 
     }
   };
-
+  
   const {data} = await axios.post(url, payload, config);
 
   const userPayload = {

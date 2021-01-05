@@ -18,7 +18,10 @@ const OrderScreen = ({match, history}) => {
     useEffect(() => {
 
         dispatch({type: CART_RESET});
+
         if (!order) {
+          dispatch(getOrderDetails(id));
+        } else if (order._id !== id) {
           dispatch(getOrderDetails(id));
         }
         

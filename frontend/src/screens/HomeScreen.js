@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
 import {listProducts} from '../actions/productActions';
+import { ORDER_DETAILS_RESET } from '../constants/orderConstants';
 
 
 const HomeScreen = ({match}) => {

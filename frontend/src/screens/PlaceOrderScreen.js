@@ -14,7 +14,7 @@ import {
     CreditCardCVVInput,
     CreditCardSubmitButton
   } from 'react-square-payment-form'
-import { ORDER_CREATE_RESET } from '../constants/orderConstants';
+import { ORDER_CREATE_RESET, ORDER_DETAILS_RESET } from '../constants/orderConstants';
 import Meta from '../components/Meta';
 import CountrySelect from 'react-bootstrap-country-select';
 
@@ -74,7 +74,6 @@ const PlaceOrderScreen = ({history}) => {
           setNonceErrors([errors.map(error => error.message)])
           return
         }
-    
         setNonceErrors([]);
         const {data} = await axios.post('/api/payment/authorize', { 
             nonce,
@@ -255,8 +254,8 @@ const PlaceOrderScreen = ({history}) => {
                             <ListGroup.Item>
                                 <SquarePaymentForm
                                     sandbox={true}
-                                    applicationId={squareConfig.SQUARE_APPLICATION_ID}
-                                    locationId={squareConfig.SQUARE_LOCATION_ID}
+                                    applicationId='sandbox-sq0idb-c8hnuHGwxUN2i9ksVg5LuA'
+                                    locationId='LGSQ2AEHVVSZQ'
                                     cardNonceResponseReceived={cardNonceResponseReceived}
                                     createVerificationDetails={createVerificationDetails}
                                     >
