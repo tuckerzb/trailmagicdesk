@@ -81,7 +81,7 @@ const HomeScreen = ({match}) => {
                         <Image src='station-sign.jpg' className='border border-dark p-0' fluid thumbnail />
                     </Col>
                     <Col md={6} className='text-center'>
-                        <span className='display-2 font-weight-bold'>"See you when you get here!"</span>
+                        <span className='h2 font-weight-bold'>Our goal is to provide trail magic to every thru- or section-hiker visiting <a href={'https://www.thestationat19e.com'}>The Station at 19E</a>.<br /><br /></span><p className='h2 font-italic'>You too can be a virtual trail angel - right from your desk!</p>
                     </Col>
                 </Row>
             </Jumbotron>
