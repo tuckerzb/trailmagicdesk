@@ -14,7 +14,7 @@ import {
     CreditCardCVVInput,
     CreditCardSubmitButton
   } from 'react-square-payment-form'
-import { ORDER_CREATE_RESET, ORDER_DETAILS_RESET } from '../constants/orderConstants';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import Meta from '../components/Meta';
 import CountrySelect from 'react-bootstrap-country-select';
 
@@ -27,25 +27,20 @@ const PlaceOrderScreen = ({history}) => {
     const orderState = useSelector(state => state.orderCreate);
     const {order, success, error} = orderState;
 
-    const [squareConfig, setSquareConfig] = useState({});
-
-    const getSquareConfig = async () => {
-       await axios.get('/api/config/square').then(result => {
-           setSquareConfig(result.data);
-        });
-
+    const calculatedOrder = localStorage.getItem('calculatedOrder') ? JSON.parse(localStorage.getItem('calculatedOrder')) : null;
+    if (!calculatedOrder) {
+        throw new Error('Could not calculate order totals');
     }
 
-    useEffect(() => {
-        getSquareConfig();
-    
+
+    useEffect(() => {    
         if (success) {
             dispatch({type: ORDER_CREATE_RESET});
             localStorage.removeItem('cartItems');
             history.push(`/order/${order._id}`)
         }
 
-    }, [history, dispatch, success, order]);
+    }, [history, dispatch, success, order, cart]);
 
     const [nonceErrors, setNonceErrors] = useState([]);
     const [name, setName] = useState('');
@@ -66,8 +61,12 @@ const PlaceOrderScreen = ({history}) => {
         accum + (item.price * item.qty)
     ), 0));
 
-    cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
-    cart.totalPrice = addDecimals(Number(Number(cart.itemsPrice) + Number(cart.taxPrice)));
+    cart.taxPrice = addDecimals(Number(calculatedOrder.tax_money.amount / 100));
+    cart.totalPrice = addDecimals(Number(Number(calculatedOrder.total_money.amount / 100)));
+
+    if ((calculatedOrder.total_money.amount / 100) < cart.itemsPrice) {
+        throw new Error('Invalid order calculations');
+    }
 
     const cardNonceResponseReceived = async (errors, nonce, cardData, buyerVerificationToken) => {
         if (errors) {
@@ -87,7 +86,8 @@ const PlaceOrderScreen = ({history}) => {
                 state,
                 zip: zipCode,
                 country
-            }
+            },
+            cartItems: cart.cartItems
          });
 
          if(data.payment.status === "COMPLETED") {
@@ -129,6 +129,7 @@ const PlaceOrderScreen = ({history}) => {
 
     return (
         <>
+        {error ? <Message variant='dange'>{error}</Message> : (
             <Row>
                 <Meta title='Checkout' />
                 <Col md={7}>
@@ -254,8 +255,8 @@ const PlaceOrderScreen = ({history}) => {
                             <ListGroup.Item>
                                 <SquarePaymentForm
                                     sandbox={true}
-                                    applicationId='sandbox-sq0idb-c8hnuHGwxUN2i9ksVg5LuA'
-                                    locationId='LGSQ2AEHVVSZQ'
+                                    applicationId='sandbox-sq0idb-I8r3GOt-88td3-IuBVsqgw'
+                                    locationId='L3R9ASHJPPHJF'
                                     cardNonceResponseReceived={cardNonceResponseReceived}
                                     createVerificationDetails={createVerificationDetails}
                                     >
@@ -289,6 +290,7 @@ const PlaceOrderScreen = ({history}) => {
                     </Card>
                 </Col>
             </Row>
+        )}
         </>
     )
 

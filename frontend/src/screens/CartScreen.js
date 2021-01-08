@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
+import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import Message from '../components/Message';
 import {Link} from 'react-router-dom';
 import {Row, Col, ListGroup, Image, Form, Button, Card} from 'react-bootstrap';
 import {addToCart, removeFromCart} from '../actions/cartActions';
 import Meta from '../components/Meta';
-import  {ORDER_DETAILS_RESET} from '../constants/orderConstants';
 
 
 const CartScreen = ({match, location, history}) => {
@@ -26,7 +26,9 @@ const CartScreen = ({match, location, history}) => {
         dispatch(removeFromCart(id));
     }
 
-    const checkoutHandler = () => {
+    const checkoutHandler = async () => {
+        const result = await axios.post('/api/payment/calculate', cart)
+        localStorage.setItem('calculatedOrder', JSON.stringify(result.data.order.net_amounts));
         history.push('/placeorder');
     }
 

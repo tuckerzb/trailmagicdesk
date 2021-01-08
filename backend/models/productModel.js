@@ -31,6 +31,15 @@ const productSchema = mongoose.Schema({
         type: Boolean,
         required: true,
         default: true
+    },
+    squareCatalogId: {
+        type: String,
+        required: true
+    },
+    squareTaxId: [],
+    taxPercent: {
+        type: String,
+        required: true
     }
 }, {timestamps: true});
 
