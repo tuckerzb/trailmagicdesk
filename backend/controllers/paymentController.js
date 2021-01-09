@@ -36,6 +36,7 @@ const authorizePayment = asyncHandler(async (req, res) => {
                   "display_name": req.body.billingInfo.name,
                   "email_address": req.body.billingInfo.email
               },
+              "note": "Recipient: " + req.body.recipient + " Message: " + req.body.message,
               "schedule_type": "ASAP",
               "pickup_at": pickupdDate.toISOString()
           }

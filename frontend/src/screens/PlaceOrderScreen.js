@@ -87,7 +87,9 @@ const PlaceOrderScreen = ({history}) => {
                 zip: zipCode,
                 country
             },
-            cartItems: cart.cartItems
+            cartItems: cart.cartItems,
+            recipient,
+            message
          });
 
          if(data.payment.status === "COMPLETED") {
