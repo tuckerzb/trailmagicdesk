@@ -34,12 +34,14 @@ const productSchema = mongoose.Schema({
     },
     squareCatalogId: {
         type: String,
-        required: true
+        required: false
     },
     squareTaxId: [],
-    taxPercent: {
-        type: String,
-        required: true
+
+    isCash: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 }, {timestamps: true});
 

@@ -7,7 +7,6 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
 import {listProducts} from '../actions/productActions';
-import { ORDER_DETAILS_RESET } from '../constants/orderConstants';
 
 
 const HomeScreen = ({match}) => {
@@ -68,11 +67,28 @@ const HomeScreen = ({match}) => {
            {loading ? (<Loader />) : error ? (<Message variant='danger'>{error}</Message>) : 
             (<>
             <Row>
-                {products.map(product => (
-                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                {products.map(product => {
+                    if (!product.isCash) {
+                    return (<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                         <Product product={product} />
-                    </Col>
-                ))}
+                    </Col>);
+                    } else {
+                        return null;
+                    }
+                })}
+            </Row>
+            <h2 className='text-center'>Cash Trail Magic</h2>
+            <p className='text-center font-italic'>Your cash trail magic can be used for any product or service at The Station at 19E.</p>
+            <Row>
+                {products.map(product => {
+                    if (product.isCash) {
+                    return (<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                        <Product product={product} />
+                    </Col>);
+                    } else {
+                        return null;
+                    }
+                })}
             </Row>
             <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} /> </>)
             }
@@ -82,7 +98,7 @@ const HomeScreen = ({match}) => {
                         <Image src='station-sign.jpg' className='border border-dark p-0' fluid thumbnail />
                     </Col>
                     <Col md={6} className='text-center'>
-                        <span className='h2 font-weight-bold'>Our goal is to provide trail magic to every thru- or section-hiker visiting <a href={'https://www.thestationat19e.com'}>The Station at 19E</a>.<br /><br /></span><p className='h2 font-italic'>You too can be a virtual trail angel - right from your desk!</p>
+                        <span className='h2 font-weight-bold'>Our goal is to provide trail magic to every thru-hiker visiting <a href={'https://www.thestationat19e.com'}>The Station at 19E</a>.<br /><br /></span><p className='h2 font-italic'>You too can be a virtual trail angel - right from your desk!</p>
                     </Col>
                 </Row>
             </Jumbotron>

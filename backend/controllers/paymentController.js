@@ -42,8 +42,14 @@ const authorizePayment = asyncHandler(async (req, res) => {
           }
       }]
     }
-  }
+  };
   req.body.cartItems.forEach(item => {
+    if (item.isCash === true) {
+      orderPayload.order.line_items.push({
+        quantity: String(item.qty),
+        catalog_object_id: item.squareCatalogId,
+      });
+    } else {
     orderPayload.order.line_items.push({
       quantity: String(item.qty),
       catalog_object_id: item.squareCatalogId,
@@ -61,6 +67,7 @@ const authorizePayment = asyncHandler(async (req, res) => {
         scope: "LINE_ITEM"
       })
     }
+  }
 
   });
 
@@ -145,6 +152,12 @@ const calculateOrder = asyncHandler(async (req, res) => {
     }
   }
   req.body.cartItems.forEach(item => {
+    if (item.isCash) {
+      orderPayload.order.line_items.push({
+        quantity: String(item.qty),
+        catalog_object_id: item.squareCatalogId
+      });
+    } else {
     orderPayload.order.line_items.push({
       quantity: String(item.qty),
       catalog_object_id: item.squareCatalogId,
@@ -162,6 +175,7 @@ const calculateOrder = asyncHandler(async (req, res) => {
         scope: "LINE_ITEM"
       })
     }
+  }
 
   });
 

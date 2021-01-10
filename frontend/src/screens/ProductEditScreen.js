@@ -17,6 +17,7 @@ const ProductEditScreen = ({match, history}) => {
     const [image, setImage] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
+    const [isCash, setIsCash] = useState(false);
     const [uploading, setUploading] = useState(false);
 
     const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const ProductEditScreen = ({match, history}) => {
                 setImage(product.image);
                 setCategory(product.category);
                 setDescription(product.description);
+                setIsCash(product.isCash);
             }
         }
     }, [dispatch, product, productId, history, successUpdate])
@@ -74,6 +76,7 @@ const ProductEditScreen = ({match, history}) => {
             category,
             description,
             image,
+            isCash
         }));
     }
 
@@ -108,6 +111,10 @@ const ProductEditScreen = ({match, history}) => {
                          <Form.Label>Description</Form.Label>
                          <Form.Control type='text' placeholder='Description' value={description} onChange={(e) => setDescription(e.target.value)}></Form.Control>
                      </Form.Group>
+                     <Form.Group controlID='isCash'>
+                         <Form.Label>Is this a Cash product?</Form.Label>
+                        <Form.Check type='switch' id={`isCash-${product.isCash}`} onChange={() => setIsCash(!product.isCash)} checked={product.isCash} />
+                    </Form.Group>
                      <Button type='submit' variant='primary'>
                          Update
                      </Button>

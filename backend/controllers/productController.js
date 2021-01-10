@@ -72,6 +72,7 @@ const createProduct = asyncHandler(async (req, res) => {
         image: '/images/sample.jpg',
         category: 'Sample Category',
         description: 'Sample Description',
+        squareCatalogId: '',
         isActive: true
     })
 
@@ -83,7 +84,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // @route    PPUT /api/products/:id
 // @access   Public/Admin
 const updateProduct = asyncHandler(async (req, res) => {
-    const {name, price, description, image, category} = req.body;
+    const {name, price, description, image, category, isCash} = req.body;
     const product = await Product.findById(req.params.id);
 
     if (product) {
@@ -93,6 +94,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         product.description = description;
         product.image = image;
         product.category = category;
+        product.isCash = isCash;
 
         const updatedProduct = await product.save();
         res.status(201).json(updatedProduct);

@@ -53,7 +53,6 @@ const ProductListScreen = ({history, match}) => {
    }
 
    const isActiveHandler = (id) => {
-       console.log(id);
        dispatch(updateProductIsActive(id));
    }
 

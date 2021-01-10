@@ -11,7 +11,8 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
         countInStock: data.countInStock,
         qty,
         squareCatalogId: data.squareCatalogId,
-        squareTaxId: data.squareTaxId
+        squareTaxId: data.squareTaxId,
+        isCash: data.isCash
     }});
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 }
