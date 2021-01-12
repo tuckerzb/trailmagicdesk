@@ -71,7 +71,7 @@ const authorizePayment = asyncHandler(async (req, res) => {
 
   });
 
-  const orderUrl = "https://connect.squareupsandbox.com/v2/orders";
+  const orderUrl = "https://connect.squareup.com/v2/orders";
   try {
     const result = await axios.post(orderUrl, orderPayload, config);
     const paymentPayload = {
@@ -86,7 +86,7 @@ const authorizePayment = asyncHandler(async (req, res) => {
       },
       "idempotency_key": uuidv4()
   }
-const paymentUrl = "https://connect.squareupsandbox.com/v2/payments";
+const paymentUrl = "https://connect.squareup.com/v2/payments";
 
 try {
   const {data} = await axios.post(paymentUrl, paymentPayload, config);
@@ -179,7 +179,7 @@ const calculateOrder = asyncHandler(async (req, res) => {
 
   });
 
-  const orderUrl = "https://connect.squareupsandbox.com/v2/orders/calculate";
+  const orderUrl = "https://connect.squareup.com/v2/orders/calculate";
   try {
     const result = await axios.post(orderUrl, orderPayload, config);
     const {data} = result;

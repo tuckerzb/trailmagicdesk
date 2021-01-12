@@ -257,8 +257,8 @@ const PlaceOrderScreen = ({history}) => {
                             <ListGroup.Item>
                                 <SquarePaymentForm
                                     sandbox={true}
-                                    applicationId='sandbox-sq0idb-I8r3GOt-88td3-IuBVsqgw'
-                                    locationId='L3R9ASHJPPHJF'
+                                    applicationId='sq0idp-bzu7lTKlowIZvtnJOaHTUw'
+                                    locationId='RKDK2RNEYZXW9'
                                     cardNonceResponseReceived={cardNonceResponseReceived}
                                     createVerificationDetails={createVerificationDetails}
                                     >
