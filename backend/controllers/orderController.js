@@ -40,6 +40,13 @@ const getOrderById = asyncHandler(async (req, res) => {
     if (order) {
         res.json(order);
     } else {
+        const orderBySquareId = await Order.find({"payment_result.order_id": req.params.id}).populate('user', 'name email billingAddress billingCity billingState billingZip billingCountry');
+        if (orderBySquareId) {
+            res.json(orderBySquareId)
+        } else {
+            res.status(404);
+            throw new Error('Order not found!'); 
+        }
         res.status(404);
         throw new Error('Order not found!');
     }

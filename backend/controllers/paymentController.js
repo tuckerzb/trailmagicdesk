@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
+import nodemailer from 'nodemailer';
 import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
 import dotenv from 'dotenv';
@@ -90,6 +91,32 @@ const paymentUrl = "https://connect.squareup.com/v2/payments";
 
 try {
   const {data} = await axios.post(paymentUrl, paymentPayload, config);
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: true,
+      auth: {
+        user: process.env.SMTP_USERNAME,
+        pass: process.env.SMTP_PASSWORD
+      }
+    });
+    const info = transporter.sendMail({
+      from: process.env.SMTP_USERNAME,
+      to: 'dmageetx@gmail.com, zbtucker@gmail.com',
+      subject: "Test Message from Nodemailer",
+      html: `A new order has been placed at Trail Magic Desk:<br />
+      Recipient: ${req.body.recipient}<br />
+      Message: ${req.body.message}<br />
+      Amount: $${req.body.amount / 100}<br />
+      <a href='${data.payment.receipt_url}'>Click here to view details</a>`
+    });
+  
+  } catch (error) {
+    console.log(error);
+  }
+
   const userPayload = {
     name: req.body.billingInfo.name,
     email: req.body.billingInfo.email,
