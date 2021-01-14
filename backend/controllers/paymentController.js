@@ -105,8 +105,10 @@ try {
     const info = transporter.sendMail({
       from: process.env.SMTP_USERNAME,
       to: 'dmageetx@gmail.com, zbtucker@gmail.com',
-      subject: "Test Message from Nodemailer",
+      subject: "New Trail Magic Desk Order",
       html: `A new order has been placed at Trail Magic Desk:<br />
+      Sender Name: ${req.body.billingInfo.name}<br />
+      Sender Email: ${req.body.billingInfo.email}<br /><br />
       Recipient: ${req.body.recipient}<br />
       Message: ${req.body.message}<br />
       Amount: $${req.body.amount / 100}<br />
