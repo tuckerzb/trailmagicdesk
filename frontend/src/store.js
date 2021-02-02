@@ -5,7 +5,7 @@ import {productListReducer, productDetailsReducer, productDeleteReducer, product
 import {cartReducer} from './reducers/cartReducers';
 import {userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer, userDeleteReducer, userUpdateReducer} from './reducers/userReducers';
 import {orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyReducer, orderListReducer, orderDeliverReducer} from './reducers/orderReducers';
-
+import LogRocket from 'logrocket';
 
 const reducer = combineReducers({
     productList: productListReducer,
@@ -48,7 +48,7 @@ const initialState = {
     }
 };
 
-const middleware = [thunk];
+const middleware = [thunk, LogRocket.reduxMiddleware()];
 
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 

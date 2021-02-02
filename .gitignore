@@ -1,7 +1,6 @@
 .idea/
 .vscode/
 node_modules/
-build
 .DS_Store
 *.tgz
 my-app*
@@ -14,3 +13,4 @@ yarn-error.log*
 .npm/
 yarn.lock
 .env
+frontend/.env

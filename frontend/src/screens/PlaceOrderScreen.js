@@ -52,6 +52,7 @@ const PlaceOrderScreen = ({history}) => {
     const [country, setCountry] = useState('us');
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
+    const [processingError, setProcessingError] = useState('');
 
     const addDecimals = (num) => (
         (Math.round(num * 100) / 100).toFixed(2)
@@ -109,6 +110,8 @@ const PlaceOrderScreen = ({history}) => {
                     receipt_url: data.payment.receipt_url
                 }
             }));
+         } else {
+             setProcessingError('An error processing your payment has occurred. Please check your billing details and credit card information. If this error persists, please contact us at ')
          }
       }
 
@@ -131,7 +134,8 @@ const PlaceOrderScreen = ({history}) => {
 
     return (
         <>
-        {error ? <Message variant='dange'>{error}</Message> : (
+        {processingError && (<Message variant='danger'>{processingError}</Message>)}
+        {error ? <Message variant='danger'>{error}</Message> : (
             <Row>
                 <Meta title='Checkout' />
                 <Col md={7}>
