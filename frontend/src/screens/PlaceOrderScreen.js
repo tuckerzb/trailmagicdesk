@@ -178,7 +178,7 @@ const PlaceOrderScreen = ({history}) => {
                             </p>
                             <Form.Group controlId='message'>
                                 <Form.Label>Message (Optional)</Form.Label>
-                                <Form.Control type='text' placeholder='' value={message} onChange={(e) => setMessage(e.target.value)}></Form.Control>
+                                <Form.Control as='textarea' rows={3} value={message} onChange={(e) => setMessage(e.target.value)}></Form.Control>
                             </Form.Group>
                         </ListGroup.Item>
                     </ListGroup>
