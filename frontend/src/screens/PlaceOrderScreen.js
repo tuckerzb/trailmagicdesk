@@ -75,6 +75,7 @@ const PlaceOrderScreen = ({history}) => {
           return
         }
         setNonceErrors([]);
+        setProcessingError('');
         const {data} = await axios.post('/api/payment/authorize', { 
             nonce,
             token: buyerVerificationToken, 
@@ -96,7 +97,7 @@ const PlaceOrderScreen = ({history}) => {
              setProcessingError(data.error);
          }
 
-         if(data.payment.status === "COMPLETED") {
+         if(!data.error && data.payment.status === "COMPLETED") {
              dispatch(createOrder({
                 orderItems: cart.cartItems,
                 itemsPrice: cart.itemsPrice,
