@@ -145,13 +145,13 @@ try {
     });
   }
 } catch (e) {
-  res.status(400);
-  throw new Error('Could not process payment. Please double check your billing information and payment card details are correct and try again.');
+  res.status(400).json({
+    error: 'Could not process payment. Please double check your billing information and payment card details are correct and try again.'
+  });
 }
 
   } catch (e) {
-    res.status(400);
-    throw new Error('We encountered an unexpected error and cannot process your order. Please double check your billing information and payment card details are correct and try again.');
+    res.status(400).json('We encountered an unexpected error and cannot process your order. Please double check your billing information and payment card details are correct and try again.');
   }
 
 })
