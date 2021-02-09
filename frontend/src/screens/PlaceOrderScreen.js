@@ -95,9 +95,7 @@ const PlaceOrderScreen = ({history}) => {
          });
          if (data.error) {
              setProcessingError(data.error);
-         }
-
-         if(!data.error && data.payment.status === "COMPLETED") {
+         }else if(data.payment.status === "COMPLETED") {
              dispatch(createOrder({
                 orderItems: cart.cartItems,
                 itemsPrice: cart.itemsPrice,
