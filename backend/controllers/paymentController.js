@@ -145,11 +145,13 @@ try {
     });
   }
 } catch (e) {
-  console.log(e);
+  res.status(400);
+  throw new Error('Could not process payment. Please double check your billing information and payment card details are correct and try again.');
 }
 
   } catch (e) {
-    console.log(e);
+    res.status(400);
+    throw new Error('We encountered an unexpected error and cannot process your order. Please double check your billing information and payment card details are correct and try again.');
   }
 
 })
@@ -215,7 +217,7 @@ const calculateOrder = asyncHandler(async (req, res) => {
     res.json(data);
 
   } catch (e) {
-    res.json(e);
+    console.log(e);
   }
 })
 
