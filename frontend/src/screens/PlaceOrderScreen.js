@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Row, Col, ListGroup, Image, Card, Form} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux';
 import Message from '../components/Message';
+import Loader from '../components/Loader';
 import {Link} from 'react-router-dom';
 import {createOrder} from '../actions/orderActions';
 import { SquarePaymentForm } from 'react-square-payment-form';
@@ -53,6 +54,7 @@ const PlaceOrderScreen = ({history}) => {
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
     const [processingError, setProcessingError] = useState('');
+    const [processingLoading, setProcessingLoading] = useState(false);
 
     const addDecimals = (num) => (
         (Math.round(num * 100) / 100).toFixed(2)
@@ -76,6 +78,7 @@ const PlaceOrderScreen = ({history}) => {
         }
         setNonceErrors([]);
         setProcessingError('');
+        setProcessingLoading(true);
         const {data} = await axios.post('/api/payment/authorize', { 
             nonce,
             token: buyerVerificationToken, 
@@ -94,8 +97,10 @@ const PlaceOrderScreen = ({history}) => {
             message
          });
          if (data.error) {
+            setProcessingLoading(false);
              setProcessingError(data.error);
          }else if(data.payment.status === "COMPLETED") {
+            setProcessingLoading(false);
              dispatch(createOrder({
                 orderItems: cart.cartItems,
                 itemsPrice: cart.itemsPrice,
@@ -113,6 +118,7 @@ const PlaceOrderScreen = ({history}) => {
                 }
             }));
          } else {
+            setProcessingLoading(false);
              setProcessingError('An error processing your payment has occurred. Please check your billing details and credit card information. If this error persists, please contact us at ')
          }
       }
@@ -260,6 +266,7 @@ const PlaceOrderScreen = ({history}) => {
                                 )
                                 }
                             <ListGroup.Item>
+                            {processingLoading && <Loader />}
                             {processingError && (<Message variant='danger'>{processingError}</Message>)}
                                 <SquarePaymentForm
                                     applicationId='sq0idp-bzu7lTKlowIZvtnJOaHTUw'
