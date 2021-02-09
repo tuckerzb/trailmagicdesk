@@ -136,7 +136,6 @@ const PlaceOrderScreen = ({history}) => {
 
     return (
         <>
-        {processingError && (<Message variant='danger'>{processingError}</Message>)}
         {error ? <Message variant='danger'>{error}</Message> : (
             <Row>
                 <Meta title='Checkout' />
@@ -261,6 +260,7 @@ const PlaceOrderScreen = ({history}) => {
                                 )
                                 }
                             <ListGroup.Item>
+                            {processingError && (<Message variant='danger'>{processingError}</Message>)}
                                 <SquarePaymentForm
                                     applicationId='sq0idp-bzu7lTKlowIZvtnJOaHTUw'
                                     locationId='RKDK2RNEYZXW9'
