@@ -92,7 +92,9 @@ const PlaceOrderScreen = ({history}) => {
             recipient,
             message
          });
-         console.log(data);
+         if (data.error) {
+             setProcessingError(data.error);
+         }
 
          if(data.payment.status === "COMPLETED") {
              dispatch(createOrder({
