@@ -104,7 +104,7 @@ try {
     });
     const info = transporter.sendMail({
       from: process.env.SMTP_USERNAME,
-      to: 'dmageetx@gmail.com, zbtucker@gmail.com',
+      to: 'thestationat19e@gmail.com, zbtucker@gmail.com',
       subject: "New Trail Magic Desk Order",
       html: `A new order has been placed at Trail Magic Desk:<br />
       Sender Name: ${req.body.billingInfo.name}<br />
