@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import products from './data/products.js';
 import connectDB from './config/db.js';
 import morgan from 'morgan';
-import sslRedirect from 'heroku-ssl-redirect';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
@@ -19,7 +18,14 @@ connectDB();
 
 const app = express();
 
-app.use(sslRedirect());
+app.use(function (req, res, next) {
+        if (req.headers['x-forwarded-proto'] != 'https') {
+          res.redirect(302, 'https://' + req.hostname + req.originalUrl);
+        }
+        else {
+          next();
+        }
+});
 
 if (process.env.NODE_ENV == 'development') {
     app.use(morgan('dev'));
