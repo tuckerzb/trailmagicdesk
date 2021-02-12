@@ -20,7 +20,7 @@ const app = express();
 
 app.use(function (req, res, next) {
         if (req.headers['x-forwarded-proto'] != 'https') {
-          res.redirect(302, 'https://' + req.hostname + req.originalUrl);
+          res.redirect(301, 'https://' + req.hostname + req.originalUrl);
         }
         else {
           next();
