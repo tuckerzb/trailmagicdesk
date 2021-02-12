@@ -7,7 +7,7 @@ const Footer = () => {
            <Container>
                <Row>
                    <Col className='text-center py-3'>
-                     Copyright &copy; Trail Magic Desk | Website by <a href='http://www.bytarmacortrail.com'>Zach "Free Fall" Tucker</a>
+                     Copyright &copy; Trail Magic Desk | Website by <a href='https://zachtucker.dev'>Zach "Free Fall" Tucker</a>
                    </Col>
                </Row>
            </Container>
