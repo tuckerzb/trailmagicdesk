@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import products from './data/products.js';
 import connectDB from './config/db.js';
 import morgan from 'morgan';
+import sslRedirect from 'heroku-ssl-redirect';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
@@ -17,6 +18,8 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+app.use(sslRedirect());
 
 if (process.env.NODE_ENV == 'development') {
     app.use(morgan('dev'));
