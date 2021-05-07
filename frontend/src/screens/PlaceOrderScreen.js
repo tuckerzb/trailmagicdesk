@@ -178,7 +178,7 @@ const PlaceOrderScreen = ({history}) => {
                             </p>
                             <Form.Group controlId='recipient'>
                                 <Form.Label>Trail Name (Optional)</Form.Label>
-                                <Form.Control type='text' placeholder='' value={recipient} onChange={(e) => setRecipient(e.target.value)}></Form.Control>
+                                <Form.Control type='text' placeholder='' autoComplete='off' value={recipient} onChange={(e) => setRecipient(e.target.value)}></Form.Control>
                             </Form.Group>
                             <h2>Message</h2>
                             <p>We'll pass your message along to the lucky hiker!
@@ -194,7 +194,7 @@ const PlaceOrderScreen = ({history}) => {
                             <h2>Billing Information</h2>
                             <Form.Group controlId='name'>
                                 <Form.Label>Name on Card</Form.Label>
-                                <Form.Control type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} required></Form.Control>
+                                <Form.Control type='text' placeholder='Name' autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} required></Form.Control>
                             </Form.Group>
                             <Form.Group controlId='email'>
                                 <Form.Label>Email</Form.Label>
