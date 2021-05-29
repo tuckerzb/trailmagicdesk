@@ -55,7 +55,7 @@ const OrderListScreen = ({history}) => {
                                 </td>
                             </tr>
                         ))}
-                        <tr>Total Orders: {orders.length} | Total Value: ${orders.reduce(((prev,cur) => prev+cur.totalPrice), 0)}</tr>
+                        <tr>Total Orders: {orders.length} | Total Value: ${orders.reduce(((prev,cur) => prev+cur.totalPrice), 0).toFixed(2)}</tr>
                     </tbody>
                 </Table>
             )}
