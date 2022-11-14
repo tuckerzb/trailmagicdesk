@@ -6,7 +6,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../actions/orderActions';
-import { CreditCard, PaymentsForm } from 'react-square-web-payments-sdk';
+import { CreditCard, PaymentForm } from 'react-square-web-payments-sdk';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import Meta from '../components/Meta';
 import CountrySelect from 'react-bootstrap-country-select';
@@ -318,13 +318,13 @@ const PlaceOrderScreen = ({ history }) => {
                   {processingError && (
                     <Message variant='danger'>{processingError}</Message>
                   )}
-                  <PaymentsForm
+                  <PaymentForm
                     applicationId='sq0idp-bzu7lTKlowIZvtnJOaHTUw'
                     locationId='RKDK2RNEYZXW9'
                     cardNonceResponseReceived={cardNonceResponseReceived}
                     createVerificationDetails={createVerificationDetails}>
                     <CreditCard />
-                  </PaymentsForm>
+                  </PaymentForm>
 
                   <div className='sq-error-message'>
                     {nonceErrors.map((errorMessage) => (
