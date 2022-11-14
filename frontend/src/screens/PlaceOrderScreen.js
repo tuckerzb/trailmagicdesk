@@ -123,6 +123,10 @@ const PlaceOrderScreen = ({ history }) => {
     }
   };
 
+  const cardTokenizeResponseReceived = (data) => {
+    console.log(data);
+  };
+
   const createVerificationDetails = () => {
     return {
       amount: String(cart.totalPrice * 100),
@@ -322,6 +326,7 @@ const PlaceOrderScreen = ({ history }) => {
                     applicationId='sq0idp-bzu7lTKlowIZvtnJOaHTUw'
                     locationId='RKDK2RNEYZXW9'
                     cardNonceResponseReceived={cardNonceResponseReceived}
+                    cardTokenizeResponseReceived={cardTokenizeResponseReceived}
                     createVerificationDetails={createVerificationDetails}>
                     <CreditCard />
                   </PaymentForm>
