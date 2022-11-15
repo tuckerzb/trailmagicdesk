@@ -75,9 +75,12 @@ const HomeScreen = ({ match }) => {
       <Meta />
       <h2 className='text-center'>Closed for the Season</h2>
       <p className='text-center font-italic'>
-        Thank you for supporting the Class of 2022! While The Station at 19E is
-        still open and accepting hikers, Trail Magic From Your Desk is closed
-        for the season for maintenance. Please check back next year!
+        Thank you for supporting the Class of 2022!
+      </p>
+      <p className='text-center font-italic'>
+        TThe Station at 19E is still open and accepting hikers, but Trail Magic
+        From Your Desk is closed for the season for maintenance. Please check
+        back next year!
       </p>
 
       {/* {loading ? (<Loader />) : error ? (<Message variant='danger'>{error}</Message>) : 
