@@ -78,7 +78,7 @@ const HomeScreen = ({ match }) => {
         Thank you for supporting the Class of 2022!
       </p>
       <p className='text-center font-italic'>
-        TThe Station at 19E is still open and accepting hikers, but Trail Magic
+        The Station at 19E is still open and accepting hikers, but Trail Magic
         From Your Desk is closed for the season for maintenance. Please check
         back next year!
       </p>
