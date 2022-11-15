@@ -123,8 +123,59 @@ const PlaceOrderScreen = ({ history }) => {
     }
   };
 
-  const cardTokenizeResponseReceived = (data) => {
-    console.log(data);
+  const cardTokenizeResponseReceived = async (squareData) => {
+    console.log(squareData);
+    if (squareData?.status === 'OK') {
+      setNonceErrors([]);
+      setProcessingError('');
+      setProcessingLoading(true);
+      const { data } = await axios.post('/api/payment/authorize', {
+        nonce: squareData?.token,
+        token: squareData?.token,
+        amount: Number(cart.totalPrice * 100),
+        billingInfo: {
+          name,
+          email,
+          address,
+          city,
+          state,
+          zip: zipCode,
+          country,
+        },
+        cartItems: cart.cartItems,
+        recipient,
+        message,
+      });
+      if (data.error) {
+        setProcessingLoading(false);
+        setProcessingError(data.error);
+      } else if (data.payment.status === 'COMPLETED') {
+        setProcessingLoading(false);
+        dispatch(
+          createOrder({
+            orderItems: cart.cartItems,
+            itemsPrice: cart.itemsPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice,
+            recipient,
+            message,
+            user: data.user._id,
+            paymentResult: {
+              id: data.payment.id,
+              status: data.payment.status,
+              updated_at: data.payment.updated_at,
+              order_id: data.payment.order_id,
+              receipt_url: data.payment.receipt_url,
+            },
+          })
+        );
+      } else {
+        setProcessingLoading(false);
+        setProcessingError(
+          'An error processing your payment has occurred. Please check your billing details and credit card information. If this error persists, please contact us at '
+        );
+      }
+    }
   };
 
   const createVerificationDetails = () => {
@@ -325,7 +376,7 @@ const PlaceOrderScreen = ({ history }) => {
                   <PaymentForm
                     applicationId='sq0idp-bzu7lTKlowIZvtnJOaHTUw'
                     locationId='RKDK2RNEYZXW9'
-                    cardNonceResponseReceived={cardNonceResponseReceived}
+                    // cardNonceResponseReceived={cardNonceResponseReceived}
                     cardTokenizeResponseReceived={cardTokenizeResponseReceived}
                     createVerificationDetails={createVerificationDetails}>
                     <CreditCard />
