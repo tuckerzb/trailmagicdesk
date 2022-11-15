@@ -73,7 +73,11 @@ const HomeScreen = ({ match }) => {
       </Jumbotron>
 
       <Meta />
-      <h2 className='text-center'>Closed for the Season</h2>
+      <h2 className='text-center'>
+        Trail Magic From Your Desk is Closed for the Season
+        <br />
+        The Station at 19E is Still OPEN
+      </h2>
       <p className='text-center font-italic'>
         Thank you for supporting the Class of 2022!
       </p>
